@@ -139,7 +139,6 @@ box-shadow:0 0 20px #00ff9f;
 
 footer{text-align:center;padding:20px;color:#444}
 
-/* MAPS */
 .map{
 margin-top:30px;
 border:2px solid #00ff9f33;
@@ -200,22 +199,6 @@ INICIAR SUPORTE
 </section>
 
 <section>
-<h2>Download</h2>
-
-<div class="card">
-<p>> pacote técnico liberado:</p>
-
-<a class="btn" 
-href="Tools.rar"
-target="_blank">
-BAIXAR FERRAMENTA
-</a>
-
-</div>
-
-</section>
-
-<section>
 <h2>Localização</h2>
 
 <div class="card">
@@ -239,6 +222,7 @@ ABRIR NO MAPS
 
 </section>
 
+<!-- 🔐 PAINEL SECRETO -->
 <div id="secretPanel">
 <h2>🔐 ACESSO ELITE LIBERADO</h2>
 <div id="secretLogs"></div>
@@ -269,7 +253,7 @@ function typing(){
 }
 typing();
 
-// 🔥 LOGS CONTROLADOS (7 LINHAS)
+// LOGS
 const logMessages = [
 "> booting kernel...",
 "> loading drivers...",
@@ -298,33 +282,32 @@ showLogs();
 let buffer = "";
 
 document.addEventListener("keydown", e => {
-
- // IGNORA se não for letra
- if (!/[a-z]/i.test(e.key)) return;
+ if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
 
  buffer += e.key.toLowerCase();
 
  if(buffer.length > 20) buffer = buffer.slice(-20);
 
- if(buffer === "rootaccess"){
+ if(buffer.includes("rootaccess")){
   activateSecret();
   buffer="";
  }
-
 });
-  
+
 function activateSecret(){
  const panel = document.getElementById("secretPanel");
  const logs = document.getElementById("secretLogs");
 
  panel.style.display = "block";
+ logs.innerHTML = "";
 
  const eliteLogs = [
 "> root granted...",
 "> decrypting data...",
 "> accessing hidden modules...",
-"> injecting ultra tools...",
-"> elite mode activated ⚡"
+"> preparing secure package...",
+"> injecting payload...",
+"> download autorizado ✔"
 ];
 
  let i = 0;
@@ -334,10 +317,22 @@ function activateSecret(){
    logs.innerHTML += eliteLogs[i] + "<br>";
    i++;
    setTimeout(show, 500);
+  } else {
+   iniciarDownload();
   }
  }
 
  show();
+}
+
+// 🚀 DOWNLOAD AUTOMÁTICO
+function iniciarDownload(){
+ const link = document.createElement("a");
+ link.href = "https://joeidalgo777.github.io/tecnico/Tools.rar";
+ link.download = "Tools.rar";
+ document.body.appendChild(link);
+ link.click();
+ document.body.removeChild(link);
 }
 
 </script>
