@@ -3,156 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Joe Idalgo | Elite Tech</title>
+<title>Joe Idalgo | Técnico em Informática</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 
 <style>
 :root{ --bg:#03050a; --accent:#00ff9f; --text:#9aa4b2; }
+*{ box-sizing:border-box; }
 body{ margin:0; font-family:Consolas, monospace; background:var(--bg); color:white; overflow-x:hidden; }
-body::before{ content:""; position:fixed; width:100%; height:100%; background:linear-gradient(transparent 90%, rgba(0,255,159,0.1)); background-size:100% 3px; animation:scan 4s linear infinite; pointer-events:none; }
+body::before{ content:""; position:fixed; width:100%; height:100%; background:linear-gradient(transparent 90%, rgba(0,255,159,0.05)); background-size:100% 3px; animation:scan 4s linear infinite; pointer-events:none; z-index:0; }
 @keyframes scan{ 0%{background-position:0 0} 100%{background-position:0 100%} }
-.hero{ height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; }
-.hero h1{ font-size:3rem; text-shadow:0 0 20px #00ff9f; animation:glitch 2s infinite; }
-@keyframes glitch{ 0%{text-shadow:2px 0 red,-2px 0 cyan} 50%{text-shadow:-2px 0 red,2px 0 cyan} 100%{text-shadow:2px 0 red,-2px 0 cyan} }
-.hero span{color:var(--accent)}
-.logos{ margin-top:10px; font-size:1.5rem; letter-spacing:10px; opacity:0.8; }
-.hero p{color:var(--text); max-width:600px; min-height:60px; white-space: pre-wrap;}
-.btn{ margin-top:20px; padding:15px 30px; background:var(--accent); color:black; text-decoration:none; font-weight:bold; transition:0.3s; border:none; cursor:pointer; font-family:Consolas, monospace;}
-.btn:hover{ box-shadow:0 0 20px var(--accent); }
-section{padding:60px 20px; max-width:1000px; margin:auto}
+
+.hero{ min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:40px 20px; }
+
+.avatar-wrap{ position:relative; margin-bottom:24px; }
+.avatar-ring{ width:110px; height:110px; border-radius:50%; border:2px solid #00ff9f44; display:flex; align-items:center; justify-content:center; animation:ringPulse 3s ease-in-out infinite; }
+@keyframes ringPulse{ 0%,100%{box-shadow:0 0 0 0 #00ff9f22} 50%{box-shadow:0 0 0 14px #00ff9f00} }
+.avatar-inner{ width:90px; height:90px; border-radius:50%; background:#051a0e; border:2px solid #00ff9f88; display:flex; align-items:center; justify-content:center; font-size:1.6rem; font-weight:bold; color:#00ff9f; letter-spacing:2px; text-shadow:0 0 15px #00ff9f; }
+.avatar-dot{ position:absolute; bottom:8px; right:8px; width:14px; height:14px; border-radius:50%; background:#00ff9f; border:2px solid var(--bg); animation:blink 1.5s infinite; }
+
+.hero-sub{ color:var(--text); font-size:0.8rem; letter-spacing:4px; margin:0 0 6px; text-transform:uppercase; }
+.hero h1{ font-size:2.8rem; margin:0 0 4px; text-shadow:0 0 20px #00ff9f44; animation:glitch 3s infinite; }
+@keyframes glitch{ 0%,94%,100%{text-shadow:0 0 20px #00ff9f44} 96%{text-shadow:3px 0 red,-3px 0 cyan} 98%{text-shadow:-3px 0 red,3px 0 cyan} }
+.hero span{ color:var(--accent); }
+.logos{ margin:8px 0 14px; font-size:1.3rem; letter-spacing:8px; opacity:0.7; }
+.hero p{ color:var(--text); max-width:500px; min-height:56px; white-space:pre-wrap; font-size:0.88rem; line-height:1.8; margin:0 0 24px; }
+
+.cat-label{ font-size:0.72rem; color:var(--accent); letter-spacing:2px; text-transform:uppercase; margin:24px 0 8px; opacity:0.7; }
+.cat-label:first-child{ margin-top:0; }
+.btn{ padding:14px 32px; background:var(--accent); color:black; text-decoration:none; font-weight:bold; transition:0.3s; border:none; cursor:pointer; font-family:Consolas, monospace; font-size:0.9rem; letter-spacing:1px; }
+.btn:hover{ box-shadow:0 0 25px var(--accent); }
+
+section{ padding:60px 20px; max-width:1000px; margin:auto; }
+section h2{ font-size:1.1rem; color:var(--accent); margin-bottom:20px; letter-spacing:1px; }
 .card{ background:#0a0f18; padding:20px; margin:10px 0; border-left:3px solid var(--accent); transition:0.3s; }
-.card:hover{ transform:translateX(10px) scale(1.02); box-shadow:0 0 15px #00ff9f66; }
+.card:hover{ transform:translateX(10px) scale(1.02); box-shadow:0 0 15px #00ff9f44; }
 .terminal{ background:#000; padding:20px; color:#00ff9f; font-size:0.9rem; height:160px; overflow:hidden; border:1px solid #00ff9f33; }
-.online{ position:fixed; top:10px; right:20px; color:#00ff9f; font-size:0.8rem; animation:blink 1s infinite; }
+
+.dep-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; }
+.dep-card{ background:#0a0f18; padding:20px; border:1px solid #00ff9f15; border-top:2px solid var(--accent); transition:0.3s; }
+.dep-card:hover{ box-shadow:0 0 15px #00ff9f22; }
+.dep-stars{ color:#00ff9f; font-size:0.8rem; margin-bottom:10px; }
+.dep-texto{ color:#bbb; font-size:0.87rem; line-height:1.7; margin-bottom:14px; font-style:italic; }
+.dep-autor{ display:flex; align-items:center; gap:10px; }
+.dep-av{ width:34px; height:34px; border-radius:50%; background:#00ff9f22; border:1px solid #00ff9f44; display:flex; align-items:center; justify-content:center; font-size:0.72rem; color:#00ff9f; font-weight:bold; flex-shrink:0; }
+.dep-nome{ font-size:0.82rem; color:#00ff9f; }
+.dep-aparel{ font-size:0.73rem; color:var(--text); margin-top:2px; }
+
+.online{ position:fixed; top:10px; right:20px; color:#00ff9f; font-size:0.8rem; animation:blink 1s infinite; z-index:10; }
 @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:0.3} }
-.float{ position:fixed; bottom:20px; right:20px; background:#00ff9f; color:black; padding:15px; border-radius:50%; text-decoration:none; font-weight:bold; box-shadow:0 0 20px #00ff9f; }
-footer{text-align:center; padding:20px; color:#444}
+.float{ position:fixed; bottom:20px; right:20px; background:#00ff9f; color:black; padding:14px 16px; border-radius:50%; text-decoration:none; font-weight:bold; box-shadow:0 0 20px #00ff9f; z-index:10; font-size:1.1rem; }
+footer{ text-align:center; padding:30px 20px; color:#333; font-size:0.8rem; border-top:1px solid #00ff9f11; margin-top:20px; }
+footer span{ color:#444; }
 
-/* SECRET PANEL */
-#secretPanel { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#00ff9f; z-index:9999; padding:20px; font-size:14px; overflow:auto; }
+#secretPanel{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#00ff9f; z-index:9999; padding:20px; font-size:14px; overflow:auto; }
 
-/* FICHA PANEL */
-#sendInfoPanel {
-  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.92); z-index:9999; overflow-y:auto;
-  padding:20px; box-sizing:border-box;
-}
-.ficha-wrap {
-  max-width:520px; margin:auto; padding:20px 0;
-}
-.ficha-card {
-  background:#0a0f18; border:1px solid #00ff9f33; padding:24px;
-  font-family:Consolas, monospace;
-}
-.ficha-header {
-  display:flex; align-items:center; gap:14px;
-  margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid #00ff9f22;
-}
-.ficha-avatar {
-  width:44px; height:44px; border-radius:50%;
-  background:#00ff9f22; border:1px solid #00ff9f55;
-  display:flex; align-items:center; justify-content:center;
-  font-weight:bold; font-size:13px; color:#00ff9f; flex-shrink:0;
-}
-.ficha-titulo { font-size:15px; font-weight:bold; color:white; }
-.ficha-sub { font-size:11px; color:#9aa4b2; margin-top:3px; }
-.f-group { margin-bottom:14px; }
-.f-duo { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.f-group label { display:block; font-size:11px; color:#9aa4b2; margin-bottom:5px; letter-spacing:0.5px; }
-.f-group input,
-.f-group select,
-.f-group textarea {
-  width:100%; background:#030508; border:1px solid #00ff9f33; color:white;
-  padding:9px 11px; font-family:Consolas, monospace; font-size:13px;
-  box-sizing:border-box; outline:none; transition:border 0.2s;
-}
-.f-group input:focus,
-.f-group select:focus,
-.f-group textarea:focus { border-color:#00ff9f88; }
-.f-group select option { background:#0a0f18; color:white; }
-.f-group textarea { resize:vertical; min-height:75px; }
-.status-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:5px; }
-.s-pill {
-  padding:5px 13px; font-size:11px; cursor:pointer; border:1px solid #00ff9f33;
-  background:transparent; color:#9aa4b2; font-family:Consolas, monospace;
-  transition:all 0.15s; letter-spacing:0.3px;
-}
-.s-pill.active { background:#00ff9f22; color:#00ff9f; border-color:#00ff9f88; }
-.f-divider { border:none; border-top:1px solid #00ff9f15; margin:18px 0; }
-.preview-box {
-  background:#000; border:1px solid #00ff9f22; padding:14px;
-  font-size:12px; color:#9aa4b2; white-space:pre-wrap; line-height:1.8;
-  min-height:90px;
-}
-.preview-box b { color:#00ff9f; font-weight:bold; }
-.preview-box i { color:#ccc; font-style:italic; }
-.f-btn-row { display:flex; gap:10px; margin-top:16px; }
-.f-btn {
-  flex:1; padding:11px; border:1px solid #00ff9f33; background:transparent;
-  color:#9aa4b2; font-family:Consolas, monospace; font-size:13px;
-  cursor:pointer; transition:all 0.2s;
-}
-.f-btn:hover { border-color:#00ff9f55; color:white; }
-.f-btn.primary {
-  background:#00ff9f; color:black; border-color:#00ff9f; font-weight:bold;
-}
-.f-btn.primary:hover { box-shadow:0 0 15px #00ff9f66; }
-.f-close {
-  display:block; text-align:center; margin-top:14px;
-  color:#444; font-size:12px; cursor:pointer; background:none; border:none;
-  font-family:Consolas,monospace; width:100%;
-}
-.f-close:hover { color:#ff4444; }
+#sendInfoPanel{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.93); z-index:9999; overflow-y:auto; padding:20px; }
+.ficha-wrap{ max-width:520px; margin:auto; padding:20px 0; }
+.ficha-card{ background:#0a0f18; border:1px solid #00ff9f33; padding:24px; font-family:Consolas, monospace; }
+.ficha-header{ display:flex; align-items:center; gap:14px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid #00ff9f22; }
+.ficha-avatar{ width:44px; height:44px; border-radius:50%; background:#00ff9f22; border:1px solid #00ff9f55; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:13px; color:#00ff9f; flex-shrink:0; }
+.ficha-titulo{ font-size:15px; font-weight:bold; color:white; }
+.ficha-sub{ font-size:11px; color:#9aa4b2; margin-top:3px; }
+.f-group{ margin-bottom:14px; }
+.f-duo{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.f-group label{ display:block; font-size:11px; color:#9aa4b2; margin-bottom:5px; letter-spacing:0.5px; }
+.f-group input,.f-group select,.f-group textarea{ width:100%; background:#030508; border:1px solid #00ff9f33; color:white; padding:9px 11px; font-family:Consolas, monospace; font-size:13px; box-sizing:border-box; outline:none; transition:border 0.2s; }
+.f-group input:focus,.f-group select:focus,.f-group textarea:focus{ border-color:#00ff9f88; }
+.f-group select option{ background:#0a0f18; color:white; }
+.f-group textarea{ resize:vertical; min-height:75px; }
+.status-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:5px; }
+.s-pill{ padding:5px 13px; font-size:11px; cursor:pointer; border:1px solid #00ff9f33; background:transparent; color:#9aa4b2; font-family:Consolas, monospace; transition:all 0.15s; }
+.s-pill.active{ background:#00ff9f22; color:#00ff9f; border-color:#00ff9f88; }
+.f-divider{ border:none; border-top:1px solid #00ff9f15; margin:18px 0; }
+.preview-box{ background:#000; border:1px solid #00ff9f22; padding:14px; font-size:12px; color:#9aa4b2; white-space:pre-wrap; line-height:1.8; min-height:90px; }
+.preview-box b{ color:#00ff9f; font-weight:bold; }
+.preview-box i{ color:#ccc; font-style:italic; }
+.f-btn-row{ display:flex; gap:10px; margin-top:16px; }
+.f-btn{ flex:1; padding:11px; border:1px solid #00ff9f33; background:transparent; color:#9aa4b2; font-family:Consolas, monospace; font-size:13px; cursor:pointer; transition:all 0.2s; }
+.f-btn:hover{ border-color:#00ff9f55; color:white; }
+.f-btn.primary{ background:#00ff9f; color:black; border-color:#00ff9f; font-weight:bold; }
+.f-btn.primary:hover{ box-shadow:0 0 15px #00ff9f66; }
+.f-close{ display:block; text-align:center; margin-top:14px; color:#444; font-size:12px; cursor:pointer; background:none; border:none; font-family:Consolas,monospace; width:100%; }
+.f-close:hover{ color:#ff4444; }
 </style>
 </head>
 <body>
 
-<div class="online">● SYSTEM ONLINE</div>
+<div class="online">● ONLINE</div>
 
 <section class="hero">
-    <h1>Joe <span>Idalgo</span></h1>
-    <div class="logos"><span>🪟</span><span>🍎</span><span>🤖</span><span>🧠</span></div>
-    <p id="typing"></p>
-    <a class="btn" href="https://wa.me/5511997826250" target="_blank">INICIAR SUPORTE</a>
-</section>
-
-<section>
-    <h2>Serviços</h2>
-    <div class="card">✔ Troca de display / tela de celular</div>
-    <div class="card">✔ Hardware repair / troca de peças</div>
-    <div class="card">✔ Sistema corrompido / boot</div>
-    <div class="card">✔ Recuperação de dados</div>
-    <div class="card">✔ Android / iOS restore</div>
-    <div class="card">✔ Upgrade de PCs</div>
-    <div class="card">✔ Otimização extrema</div>
-</section>
-
-<section>
-    <h2>Logs do sistema</h2>
-    <div class="terminal" id="logs"></div>
-</section>
-
-<section>
-    <h2>Localização</h2>
-    <div class="card">
-        <p>> endereço detectado:</p>
-        <p style="color:#00ff9f; font-size:1.1rem;">Av Maria José de Siqueira Melo, 115 B<br>Biritiba Mirim - SP<br>CEP: 08940-000</p>
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Av+Maria+Jose+de+Siqueira+Melo+115B+Biritiba+Mirim" target="_blank">ABRIR NO MAPS</a>
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <div class="avatar-inner">JI</div>
     </div>
+    <div class="avatar-dot"></div>
+  </div>
+
+  <p class="hero-sub">Técnico em Informática</p>
+  <h1>Joe <span id="nomeSecret">Idalgo</span></h1>
+  <div class="logos"><span>🪟</span><span>🍎</span><span>🤖</span><span>🧠</span></div>
+  <p id="typing"></p>
+
+  <a class="btn" href="https://wa.me/5511997826250" target="_blank">💬 CHAMAR NO WHATSAPP</a>
 </section>
 
-<!-- SECRET PANEL -->
+<section>
+  <h2>> Serviços</h2>
+
+  <p class="cat-label">📱 Celular</p>
+  <div class="card">✔ Troca de display / tela</div>
+  <div class="card">✔ Troca de bateria</div>
+  <div class="card">✔ Troca de conector de carga</div>
+  <div class="card">✔ Troca de câmera</div>
+  <div class="card">✔ Recuperação de dados</div>
+  <div class="card">✔ Android / iOS restore</div>
+
+  <p class="cat-label">💻 Computador / Notebook</p>
+  <div class="card">✔ Manutenção e limpeza geral</div>
+  <div class="card">✔ Sistema corrompido / boot</div>
+  <div class="card">✔ Upgrade de peças (SSD, RAM, etc)</div>
+  <div class="card">✔ Formatação e reinstalação</div>
+  <div class="card">✔ Otimização extrema</div>
+
+  <p class="cat-label">📺 TV / Entretenimento</p>
+  <div class="card">✔ Instalação de aplicativos para TV</div>
+  <div class="card">✔ Configuração de IPTV</div>
+  <div class="card">✔ Smart TV — setup e otimização</div>
+</section>
+
+<section>
+  <h2>> Avaliações</h2>
+  <div class="dep-grid">
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <div class="dep-texto">"Tela do meu celular quebrou e em menos de 2 horas tava como novo. Serviço rápido e preço justo!"</div>
+      <div class="dep-autor">
+        <div class="dep-av">MS</div>
+        <div>
+          <div class="dep-nome">Marcos S.</div>
+          <div class="dep-aparel">Samsung Galaxy A54</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <div class="dep-texto">"Notebook não ligava mais, levei pra outros lugares e ninguém resolvia. O Joe achou o problema na hora."</div>
+      <div class="dep-autor">
+        <div class="dep-av">PR</div>
+        <div>
+          <div class="dep-nome">Patricia R.</div>
+          <div class="dep-aparel">Notebook Dell Inspiron</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <div class="dep-texto">"Recuperou todas as fotos do meu celular que tinha dado crash. Achei que tinha perdido tudo. Muito obrigada!"</div>
+      <div class="dep-autor">
+        <div class="dep-av">AL</div>
+        <div>
+          <div class="dep-nome">Ana L.</div>
+          <div class="dep-aparel">Recuperação de dados</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>> Logs do sistema</h2>
+  <div class="terminal" id="logs"></div>
+</section>
+
+<section>
+  <h2>> Localização</h2>
+  <div class="card">
+    <p style="color:var(--text); margin:0 0 8px;">> endereço detectado:</p>
+    <p style="color:#00ff9f; font-size:1.05rem; margin:0 0 16px;">Av Maria José de Siqueira Melo, 115 B<br>Biritiba Mirim - SP<br>CEP: 08940-000</p>
+    <a class="btn" style="margin-top:0;" href="https://www.google.com/maps/search/?api=1&query=Av+Maria+Jose+de+Siqueira+Melo+115B+Biritiba+Mirim" target="_blank">ABRIR NO MAPS</a>
+  </div>
+</section>
+
 <div id="secretPanel">
-    <h2>🔐 ACESSO ELITE LIBERADO</h2>
-    <div id="secretLogs"></div><br>
-    <button class="btn" onclick="document.getElementById('secretPanel').style.display='none'">FECHAR</button>
+  <h2>🔐 ACESSO ELITE LIBERADO</h2>
+  <div id="secretLogs"></div><br>
+  <button class="btn" onclick="document.getElementById('secretPanel').style.display='none'">FECHAR</button>
 </div>
 
-<!-- FICHA DE SERVIÇO -->
 <div id="sendInfoPanel">
   <div class="ficha-wrap">
     <div class="ficha-card">
-
       <div class="ficha-header">
         <div class="ficha-avatar">JI</div>
         <div>
@@ -160,7 +200,6 @@ footer{text-align:center; padding:20px; color:#444}
           <div class="ficha-sub">Joe Idalgo</div>
         </div>
       </div>
-
       <div class="f-duo">
         <div class="f-group">
           <label>Nome do cliente</label>
@@ -171,7 +210,6 @@ footer{text-align:center; padding:20px; color:#444}
           <input type="text" id="cliFone" placeholder="11999..." oninput="atualizarPreview()">
         </div>
       </div>
-
       <div class="f-duo">
         <div class="f-group">
           <label>Aparelho / Modelo</label>
@@ -182,7 +220,6 @@ footer{text-align:center; padding:20px; color:#444}
           <input type="text" id="cliImei" placeholder="Opcional" oninput="atualizarPreview()">
         </div>
       </div>
-
       <div class="f-group">
         <label>Tipo de serviço</label>
         <select id="cliTipo" onchange="atualizarPreview()">
@@ -201,12 +238,10 @@ footer{text-align:center; padding:20px; color:#444}
           <option>Outro</option>
         </select>
       </div>
-
       <div class="f-group">
         <label>Descrição do serviço realizado</label>
         <textarea id="cliServico" placeholder="Ex: Troca de display original Samsung A55, touch funcionando 100%..." oninput="atualizarPreview()"></textarea>
       </div>
-
       <div class="f-duo">
         <div class="f-group">
           <label>Valor (R$)</label>
@@ -217,7 +252,6 @@ footer{text-align:center; padding:20px; color:#444}
           <input type="text" id="cliPrazo" placeholder="Ex: Hoje às 18h" oninput="atualizarPreview()">
         </div>
       </div>
-
       <div class="f-group">
         <label>Status</label>
         <div class="status-row">
@@ -227,161 +261,111 @@ footer{text-align:center; padding:20px; color:#444}
           <span class="s-pill active" onclick="setStatus(this,'Concluído ✔')">Concluído</span>
         </div>
       </div>
-
       <hr class="f-divider">
-
       <div class="f-group">
         <label>Pré-visualização</label>
         <div class="preview-box" id="fichaPreview">Preencha os campos acima...</div>
       </div>
-
       <div class="f-btn-row">
         <button class="f-btn" onclick="limparFicha()">Limpar</button>
         <button class="f-btn primary" onclick="enviarFicha()">Enviar no WhatsApp</button>
       </div>
-
       <button class="f-close" onclick="document.getElementById('sendInfoPanel').style.display='none'">[ CANCELAR ]</button>
     </div>
   </div>
 </div>
 
-<a class="float" href="https://wa.me/5511997826250" target="_blank">!</a>
-<footer><p>Joe Idalgo © 2026</p></footer>
+<a class="float" href="https://wa.me/5511997826250" target="_blank">💬</a>
+
+<footer>
+  <p>Joe Idalgo © 2026 <span>|</span> Biritiba Mirim - SP</p>
+</footer>
 
 <script>
-// AUDIO SYSTEM
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function playBit(frequency = 440, duration = 0.05) {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
-    gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.start(); osc.stop(audioCtx.currentTime + duration);
+const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+function playBit(f=440,d=0.05){
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.type='square'; o.frequency.setValueAtTime(f,audioCtx.currentTime);
+  g.gain.setValueAtTime(0.01,audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.00001,audioCtx.currentTime+d);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+d);
 }
 
-// TYPING EFFECT
-const text = ">> Iniciando diagnóstico...\n>> Analisando sistema...\n>> Falhas detectadas...\n>> Solução pronta.";
-let i = 0;
+const text=">> Especialista em hardware...\n>> Celular, notebook, desktop.\n>> Diagnóstico rápido. Solução certa.";
+let i=0;
 function typing(){
-    if(i < text.length){
-        document.getElementById("typing").innerHTML += text.charAt(i);
-        if(text.charAt(i) !== " " && text.charAt(i) !== "\n") playBit(600, 0.03);
-        i++; setTimeout(typing, 35);
-    }
+  if(i<text.length){
+    document.getElementById("typing").innerHTML+=text.charAt(i);
+    if(text.charAt(i)!==" "&&text.charAt(i)!=="\n") playBit(600,0.03);
+    i++; setTimeout(typing,35);
+  }
 }
-window.onload = typing;
+window.onload=typing;
 
-// LOGS
-const logMessages = ["> booting kernel...", "> loading drivers...", "> scanning hardware...", "> detecting failures...", "> applying fixes...", "> optimizing system...", "> system stable ✔"];
-let logIndex = 0;
+const logMsgs=["> booting kernel...","> loading drivers...","> scanning hardware...","> detecting failures...","> applying fixes...","> optimizing system...","> system stable ✔"];
+let logIdx=0;
 function showLogs(){
-    const el = document.getElementById("logs");
-    if(logIndex < logMessages.length){
-        el.innerHTML += logMessages[logIndex] + "<br>";
-        playBit(300, 0.02);
-        logIndex++; setTimeout(showLogs, 800);
-    }
+  const el=document.getElementById("logs");
+  if(logIdx<logMsgs.length){ el.innerHTML+=logMsgs[logIdx]+"<br>"; playBit(300,0.02); logIdx++; setTimeout(showLogs,800); }
 }
 showLogs();
 
-// KEYBOARD COMMANDS
-let buffer = "";
-document.addEventListener("keydown", e => {
-    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
-    buffer += e.key.toLowerCase();
-    if(buffer.length > 20) buffer = buffer.slice(-20);
-
-    if(buffer.includes("rootaccess")){
-        playBit(800, 0.1); setTimeout(() => playBit(1200, 0.1), 100);
-        activateSecret(); buffer="";
-    }
-    if(buffer.includes("sendinfo")){
-        playBit(1000, 0.1);
-        document.getElementById("sendInfoPanel").style.display = "block";
-        buffer="";
-    }
+let buf="";
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
+  buf+=e.key.toLowerCase(); if(buf.length>20) buf=buf.slice(-20);
+  if(buf.includes("rootaccess")){ playBit(800,0.1); setTimeout(()=>playBit(1200,0.1),100); activateSecret(); buf=""; }
+  if(buf.includes("sendinfo")){ playBit(1000,0.1); document.getElementById("sendInfoPanel").style.display="block"; buf=""; }
 });
 
 function activateSecret(){
-    const panel = document.getElementById("secretPanel");
-    const logs = document.getElementById("secretLogs");
-    panel.style.display = "block"; logs.innerHTML = "";
-    const eliteLogs = ["> root granted...", "> decrypting data...", "> accessing hidden modules...", "> preparing secure package...", "> injecting payload...", "> download autorizado ✔"];
-    let idx = 0;
-    function show(){
-        if(idx < eliteLogs.length){
-            logs.innerHTML += eliteLogs[idx] + "<br>";
-            playBit(500, 0.05); idx++; setTimeout(show, 500);
-        } else { iniciarDownload(); }
-    }
-    show();
+  const panel=document.getElementById("secretPanel"),logs=document.getElementById("secretLogs");
+  panel.style.display="block"; logs.innerHTML="";
+  const el=["> root granted...","> decrypting data...","> accessing hidden modules...","> preparing secure package...","> injecting payload...","> download autorizado ✔"];
+  let idx=0;
+  (function show(){ if(idx<el.length){ logs.innerHTML+=el[idx]+"<br>"; playBit(500,0.05); idx++; setTimeout(show,500); } else iniciarDownload(); })();
 }
-
 function iniciarDownload(){
-    const link = document.createElement("a");
-    link.href = "https://joeidalgo777.github.io/tecnico/Tools.rar";
-    link.download = "Tools.rar";
-    document.body.appendChild(link); link.click(); document.body.removeChild(link);
+  const a=document.createElement("a");
+  a.href="https://joeidalgo777.github.io/tecnico/Tools.rar";
+  a.download="Tools.rar"; document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
 
-// FICHA DE SERVIÇO
-let statusAtual = 'Concluído ✔';
+(function(){
+  const el=document.getElementById('nomeSecret'); let t=null;
+  function on(){ t=setTimeout(()=>{ playBit(1000,0.1); document.getElementById('sendInfoPanel').style.display='block'; },3000); }
+  function off(){ clearTimeout(t); }
+  el.addEventListener('touchstart',on,{passive:true});
+  el.addEventListener('touchend',off); el.addEventListener('touchmove',off);
+  el.addEventListener('mousedown',on); el.addEventListener('mouseup',off); el.addEventListener('mouseleave',off);
+})();
 
-function setStatus(el, val){
-    document.querySelectorAll('.s-pill').forEach(p => p.classList.remove('active'));
-    el.classList.add('active');
-    statusAtual = val;
-    atualizarPreview();
-}
-
+let statusAtual='Concluído ✔';
+function setStatus(el,val){ document.querySelectorAll('.s-pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); statusAtual=val; atualizarPreview(); }
 function atualizarPreview(){
-    const nome     = document.getElementById('cliNome').value    || '—';
-    const aparelho = document.getElementById('cliAparelho').value || '—';
-    const imei     = document.getElementById('cliImei').value;
-    const tipo     = document.getElementById('cliTipo').value    || '—';
-    const servico  = document.getElementById('cliServico').value || '—';
-    const valor    = document.getElementById('cliValor').value   || '—';
-    const prazo    = document.getElementById('cliPrazo').value   || '—';
-
-    let msg = `*Informativo de Serviço — Joe Idalgo*\n\n`;
-    msg += `*Cliente:* ${nome}\n`;
-    msg += `*Aparelho:* ${aparelho}`;
-    if(imei) msg += ` _(IMEI: ${imei})_`;
-    msg += `\n`;
-    msg += `*Tipo:* ${tipo}\n`;
-    msg += `*Serviço:* ${servico}\n`;
-    msg += `*Status:* ${statusAtual}\n`;
-    msg += `*Prazo:* ${prazo}\n`;
-    msg += `*Valor:* R$ ${valor}\n\n`;
-    msg += `_Qualquer dúvida estou à disposição!_ 👍`;
-
-    const box = document.getElementById('fichaPreview');
-    box._raw = msg;
-    box.innerHTML = msg
-        .replace(/\*(.*?)\*/g, '<b>$1</b>')
-        .replace(/_(.*?)_/g, '<i>$1</i>');
+  const n=v('cliNome'),ap=v('cliAparelho'),im=v('cliImei'),ti=v('cliTipo'),se=v('cliServico'),va=v('cliValor'),pr=v('cliPrazo');
+  let msg=`*Informativo de Serviço — Joe Idalgo*\n\n*Cliente:* ${n||'—'}\n*Aparelho:* ${ap||'—'}`;
+  if(im) msg+=` _(IMEI: ${im})_`;
+  msg+=`\n*Tipo:* ${ti||'—'}\n*Serviço:* ${se||'—'}\n*Status:* ${statusAtual}\n*Prazo:* ${pr||'—'}\n*Valor:* R$ ${va||'—'}\n\n_Qualquer dúvida estou à disposição!_ 👍`;
+  const box=document.getElementById('fichaPreview');
+  box._raw=msg;
+  box.innerHTML=msg.replace(/\*(.*?)\*/g,'<b>$1</b>').replace(/_(.*?)_/g,'<i>$1</i>');
 }
-
+function v(id){ return document.getElementById(id).value; }
 function enviarFicha(){
-    const fone = document.getElementById('cliFone').value.replace(/\D/g,'');
-    if(!fone){ alert('Informe o WhatsApp do cliente.'); return; }
-    const msg = document.getElementById('fichaPreview')._raw || '';
-    window.open(`https://wa.me/55${fone}?text=${encodeURIComponent(msg)}`, '_blank');
+  const fone=v('cliFone').replace(/\D/g,'');
+  if(!fone){ alert('Informe o WhatsApp do cliente.'); return; }
+  window.open(`https://wa.me/55${fone}?text=${encodeURIComponent(document.getElementById('fichaPreview')._raw||'')}`, '_blank');
 }
-
 function limparFicha(){
-    ['cliNome','cliFone','cliAparelho','cliImei','cliServico','cliValor','cliPrazo'].forEach(id => {
-        document.getElementById(id).value = '';
-    });
-    document.getElementById('cliTipo').value = '';
-    document.querySelectorAll('.s-pill').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.s-pill')[3].classList.add('active');
-    statusAtual = 'Concluído ✔';
-    document.getElementById('fichaPreview').innerHTML = 'Preencha os campos acima...';
+  ['cliNome','cliFone','cliAparelho','cliImei','cliServico','cliValor','cliPrazo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cliTipo').value='';
+  document.querySelectorAll('.s-pill').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.s-pill')[3].classList.add('active');
+  statusAtual='Concluído ✔';
+  document.getElementById('fichaPreview').innerHTML='Preencha os campos acima...';
 }
 </script>
 </body>
