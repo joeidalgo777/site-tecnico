@@ -161,6 +161,10 @@ overflow:auto;
 </style>
 </head>
 
+<audio id="terminalSound" loop>
+  <source src="https://www.soundjay.com/mechanical/keyboard-typing-1.mp3" type="audio/mpeg">
+</audio>  
+  
 <body>
 
 <div class="online">● SYSTEM ONLINE</div>
@@ -224,8 +228,26 @@ ABRIR NO MAPS
 <!-- 🔐 PAINEL SECRETO -->
 <div id="secretPanel">
 <h2>🔐 ACESSO ELITE LIBERADO</h2>
+
 <div id="secretLogs"></div>
+
+<br><br>
+
+<div id="downloads" style="display:none;">
+
+<div class="card">
+<p>> arquivo liberado:</p>
+
+<a class="btn" href="https://joeidalgo777.github.io/tecnico/Tools.rar" target="_blank">
+TOOLS.RAR
+</a>
+
+</div>
+
+</div>
+
 <br>
+
 <button onclick="document.getElementById('secretPanel').style.display='none'">
 FECHAR
 </button>
@@ -288,25 +310,27 @@ document.addEventListener("keydown", e => {
  if(buffer.length > 20) buffer = buffer.slice(-20);
 
  if(buffer.includes("rootaccess")){
-  activateSecret();
-  buffer="";
- }
-});
-
-function activateSecret(){
+  function activateSecret(){
  const panel = document.getElementById("secretPanel");
  const logs = document.getElementById("secretLogs");
+ const downloads = document.getElementById("downloads");
+ const sound = document.getElementById("terminalSound");
 
  panel.style.display = "block";
  logs.innerHTML = "";
+ downloads.style.display = "none";
+
+ // 🔊 INICIA SOM
+ sound.currentTime = 0;
+ sound.play();
 
  const eliteLogs = [
 "> root granted...",
 "> decrypting data...",
 "> accessing hidden modules...",
-"> preparing secure package...",
-"> injecting payload...",
-"> download autorizado ✔"
+"> scanning package...",
+"> unlocking file...",
+"> access granted ✔"
 ];
 
  let i = 0;
@@ -317,23 +341,22 @@ function activateSecret(){
    i++;
    setTimeout(show, 500);
   } else {
-   iniciarDownload();
+   liberarArquivos();
   }
  }
 
  show();
 }
 
-// 🚀 DOWNLOAD AUTOMÁTICO
-function iniciarDownload(){
- const link = document.createElement("a");
- link.href = "https://joeidalgo777.github.io/tecnico/Tools.rar";
- link.download = "Tools.rar";
- document.body.appendChild(link);
- link.click();
- document.body.removeChild(link);
-}
+function liberarArquivos(){
+ const downloads = document.getElementById("downloads");
+ const sound = document.getElementById("terminalSound");
 
+ downloads.style.display = "block";
+
+ // 🔇 PARA SOM
+ sound.pause();
+}
 </script>
 
 </body>
