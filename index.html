@@ -28,8 +28,81 @@ section{padding:60px 20px; max-width:1000px; margin:auto}
 .float{ position:fixed; bottom:20px; right:20px; background:#00ff9f; color:black; padding:15px; border-radius:50%; text-decoration:none; font-weight:bold; box-shadow:0 0 20px #00ff9f; }
 footer{text-align:center; padding:20px; color:#444}
 
-#secretPanel, #sendInfoPanel { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#00ff9f; z-index:9999; padding:20px; font-size:14px; overflow:auto; }
-input, textarea { width:100%; background:#111; border:1px solid #00ff9f; color:white; padding:8px; margin-bottom:10px; font-family:Consolas, monospace; box-sizing: border-box;}
+/* SECRET PANEL */
+#secretPanel { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#00ff9f; z-index:9999; padding:20px; font-size:14px; overflow:auto; }
+
+/* FICHA PANEL */
+#sendInfoPanel {
+  display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.92); z-index:9999; overflow-y:auto;
+  padding:20px; box-sizing:border-box;
+}
+.ficha-wrap {
+  max-width:520px; margin:auto; padding:20px 0;
+}
+.ficha-card {
+  background:#0a0f18; border:1px solid #00ff9f33; padding:24px;
+  font-family:Consolas, monospace;
+}
+.ficha-header {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid #00ff9f22;
+}
+.ficha-avatar {
+  width:44px; height:44px; border-radius:50%;
+  background:#00ff9f22; border:1px solid #00ff9f55;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:bold; font-size:13px; color:#00ff9f; flex-shrink:0;
+}
+.ficha-titulo { font-size:15px; font-weight:bold; color:white; }
+.ficha-sub { font-size:11px; color:#9aa4b2; margin-top:3px; }
+.f-group { margin-bottom:14px; }
+.f-duo { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.f-group label { display:block; font-size:11px; color:#9aa4b2; margin-bottom:5px; letter-spacing:0.5px; }
+.f-group input,
+.f-group select,
+.f-group textarea {
+  width:100%; background:#030508; border:1px solid #00ff9f33; color:white;
+  padding:9px 11px; font-family:Consolas, monospace; font-size:13px;
+  box-sizing:border-box; outline:none; transition:border 0.2s;
+}
+.f-group input:focus,
+.f-group select:focus,
+.f-group textarea:focus { border-color:#00ff9f88; }
+.f-group select option { background:#0a0f18; color:white; }
+.f-group textarea { resize:vertical; min-height:75px; }
+.status-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:5px; }
+.s-pill {
+  padding:5px 13px; font-size:11px; cursor:pointer; border:1px solid #00ff9f33;
+  background:transparent; color:#9aa4b2; font-family:Consolas, monospace;
+  transition:all 0.15s; letter-spacing:0.3px;
+}
+.s-pill.active { background:#00ff9f22; color:#00ff9f; border-color:#00ff9f88; }
+.f-divider { border:none; border-top:1px solid #00ff9f15; margin:18px 0; }
+.preview-box {
+  background:#000; border:1px solid #00ff9f22; padding:14px;
+  font-size:12px; color:#9aa4b2; white-space:pre-wrap; line-height:1.8;
+  min-height:90px;
+}
+.preview-box b { color:#00ff9f; font-weight:bold; }
+.preview-box i { color:#ccc; font-style:italic; }
+.f-btn-row { display:flex; gap:10px; margin-top:16px; }
+.f-btn {
+  flex:1; padding:11px; border:1px solid #00ff9f33; background:transparent;
+  color:#9aa4b2; font-family:Consolas, monospace; font-size:13px;
+  cursor:pointer; transition:all 0.2s;
+}
+.f-btn:hover { border-color:#00ff9f55; color:white; }
+.f-btn.primary {
+  background:#00ff9f; color:black; border-color:#00ff9f; font-weight:bold;
+}
+.f-btn.primary:hover { box-shadow:0 0 15px #00ff9f66; }
+.f-close {
+  display:block; text-align:center; margin-top:14px;
+  color:#444; font-size:12px; cursor:pointer; background:none; border:none;
+  font-family:Consolas,monospace; width:100%;
+}
+.f-close:hover { color:#ff4444; }
 </style>
 </head>
 <body>
@@ -45,6 +118,7 @@ input, textarea { width:100%; background:#111; border:1px solid #00ff9f; color:w
 
 <section>
     <h2>Serviços</h2>
+    <div class="card">✔ Troca de display / tela de celular</div>
     <div class="card">✔ Hardware repair / troca de peças</div>
     <div class="card">✔ Sistema corrompido / boot</div>
     <div class="card">✔ Recuperação de dados</div>
@@ -67,23 +141,108 @@ input, textarea { width:100%; background:#111; border:1px solid #00ff9f; color:w
     </div>
 </section>
 
+<!-- SECRET PANEL -->
 <div id="secretPanel">
     <h2>🔐 ACESSO ELITE LIBERADO</h2>
     <div id="secretLogs"></div><br>
     <button class="btn" onclick="document.getElementById('secretPanel').style.display='none'">FECHAR</button>
 </div>
 
+<!-- FICHA DE SERVIÇO -->
 <div id="sendInfoPanel">
-    <h2>📑 FICHA DE SERVIÇO - ELITE TECH</h2>
-    <div style="max-width:400px; border:1px solid #00ff9f33; padding:15px;">
-        <p>Nome do Cliente:</p><input type="text" id="cliNome">
-        <p>Aparelho/Modelo:</p><input type="text" id="cliAparelho">
-        <p>Serviço Executado:</p><textarea id="cliServico"></textarea>
-        <p>Valor (R$):</p><input type="text" id="cliValor">
-        <p>WhatsApp (com DDD):</p><input type="text" id="cliFone" placeholder="119...">
-        <br><button class="btn" onclick="gerarRelatorio()" style="width:100%;">ENVIAR AO CLIENTE</button>
-        <br><br><button onclick="document.getElementById('sendInfoPanel').style.display='none'" style="color:red; background:none; border:none; cursor:pointer;">[ CANCELAR ]</button>
+  <div class="ficha-wrap">
+    <div class="ficha-card">
+
+      <div class="ficha-header">
+        <div class="ficha-avatar">JI</div>
+        <div>
+          <div class="ficha-titulo">Ficha de Serviço</div>
+          <div class="ficha-sub">Joe Idalgo</div>
+        </div>
+      </div>
+
+      <div class="f-duo">
+        <div class="f-group">
+          <label>Nome do cliente</label>
+          <input type="text" id="cliNome" placeholder="Ex: João Silva" oninput="atualizarPreview()">
+        </div>
+        <div class="f-group">
+          <label>WhatsApp (com DDD)</label>
+          <input type="text" id="cliFone" placeholder="11999..." oninput="atualizarPreview()">
+        </div>
+      </div>
+
+      <div class="f-duo">
+        <div class="f-group">
+          <label>Aparelho / Modelo</label>
+          <input type="text" id="cliAparelho" placeholder="Ex: Samsung A55" oninput="atualizarPreview()">
+        </div>
+        <div class="f-group">
+          <label>IMEI / Série</label>
+          <input type="text" id="cliImei" placeholder="Opcional" oninput="atualizarPreview()">
+        </div>
+      </div>
+
+      <div class="f-group">
+        <label>Tipo de serviço</label>
+        <select id="cliTipo" onchange="atualizarPreview()">
+          <option value="">Selecionar...</option>
+          <option>Troca de display / tela</option>
+          <option>Troca de bateria</option>
+          <option>Troca de conector de carga</option>
+          <option>Troca de câmera</option>
+          <option>Troca de peça / hardware</option>
+          <option>Sistema corrompido / boot</option>
+          <option>Recuperação de dados</option>
+          <option>Restauração Android / iOS</option>
+          <option>Formatação</option>
+          <option>Upgrade de PC</option>
+          <option>Otimização de sistema</option>
+          <option>Outro</option>
+        </select>
+      </div>
+
+      <div class="f-group">
+        <label>Descrição do serviço realizado</label>
+        <textarea id="cliServico" placeholder="Ex: Troca de display original Samsung A55, touch funcionando 100%..." oninput="atualizarPreview()"></textarea>
+      </div>
+
+      <div class="f-duo">
+        <div class="f-group">
+          <label>Valor (R$)</label>
+          <input type="text" id="cliValor" placeholder="150,00" oninput="atualizarPreview()">
+        </div>
+        <div class="f-group">
+          <label>Prazo / Entrega</label>
+          <input type="text" id="cliPrazo" placeholder="Ex: Hoje às 18h" oninput="atualizarPreview()">
+        </div>
+      </div>
+
+      <div class="f-group">
+        <label>Status</label>
+        <div class="status-row">
+          <span class="s-pill" onclick="setStatus(this,'Orçamento aprovado')">Orçamento</span>
+          <span class="s-pill" onclick="setStatus(this,'Em andamento')">Em andamento</span>
+          <span class="s-pill" onclick="setStatus(this,'Aguardando peça')">Aguardando peça</span>
+          <span class="s-pill active" onclick="setStatus(this,'Concluído ✔')">Concluído</span>
+        </div>
+      </div>
+
+      <hr class="f-divider">
+
+      <div class="f-group">
+        <label>Pré-visualização</label>
+        <div class="preview-box" id="fichaPreview">Preencha os campos acima...</div>
+      </div>
+
+      <div class="f-btn-row">
+        <button class="f-btn" onclick="limparFicha()">Limpar</button>
+        <button class="f-btn primary" onclick="enviarFicha()">Enviar no WhatsApp</button>
+      </div>
+
+      <button class="f-close" onclick="document.getElementById('sendInfoPanel').style.display='none'">[ CANCELAR ]</button>
     </div>
+  </div>
 </div>
 
 <a class="float" href="https://wa.me/5511997826250" target="_blank">!</a>
@@ -169,14 +328,60 @@ function iniciarDownload(){
     document.body.appendChild(link); link.click(); document.body.removeChild(link);
 }
 
-function gerarRelatorio() {
-    const nome = document.getElementById('cliNome').value;
-    const aparelho = document.getElementById('cliAparelho').value;
-    const servico = document.getElementById('cliServico').value;
-    const valor = document.getElementById('cliValor').value;
-    const fone = document.getElementById('cliFone').value;
-    const msg = `*ELITE TECH - INFORMATIVO*%0A%0A*Cliente:* ${nome}%0A*Aparelho:* ${aparelho}%0A*Serviço:* ${servico}%0A*Valor:* R$ ${valor}%0A%0A_Diagnóstico concluído com sucesso._`;
-    window.open(`https://wa.me/55${fone}?text=${msg}`, '_blank');
+// FICHA DE SERVIÇO
+let statusAtual = 'Concluído ✔';
+
+function setStatus(el, val){
+    document.querySelectorAll('.s-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    statusAtual = val;
+    atualizarPreview();
+}
+
+function atualizarPreview(){
+    const nome     = document.getElementById('cliNome').value    || '—';
+    const aparelho = document.getElementById('cliAparelho').value || '—';
+    const imei     = document.getElementById('cliImei').value;
+    const tipo     = document.getElementById('cliTipo').value    || '—';
+    const servico  = document.getElementById('cliServico').value || '—';
+    const valor    = document.getElementById('cliValor').value   || '—';
+    const prazo    = document.getElementById('cliPrazo').value   || '—';
+
+    let msg = `*Informativo de Serviço — Joe Idalgo*\n\n`;
+    msg += `*Cliente:* ${nome}\n`;
+    msg += `*Aparelho:* ${aparelho}`;
+    if(imei) msg += ` _(IMEI: ${imei})_`;
+    msg += `\n`;
+    msg += `*Tipo:* ${tipo}\n`;
+    msg += `*Serviço:* ${servico}\n`;
+    msg += `*Status:* ${statusAtual}\n`;
+    msg += `*Prazo:* ${prazo}\n`;
+    msg += `*Valor:* R$ ${valor}\n\n`;
+    msg += `_Qualquer dúvida estou à disposição!_ 👍`;
+
+    const box = document.getElementById('fichaPreview');
+    box._raw = msg;
+    box.innerHTML = msg
+        .replace(/\*(.*?)\*/g, '<b>$1</b>')
+        .replace(/_(.*?)_/g, '<i>$1</i>');
+}
+
+function enviarFicha(){
+    const fone = document.getElementById('cliFone').value.replace(/\D/g,'');
+    if(!fone){ alert('Informe o WhatsApp do cliente.'); return; }
+    const msg = document.getElementById('fichaPreview')._raw || '';
+    window.open(`https://wa.me/55${fone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function limparFicha(){
+    ['cliNome','cliFone','cliAparelho','cliImei','cliServico','cliValor','cliPrazo'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('cliTipo').value = '';
+    document.querySelectorAll('.s-pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.s-pill')[3].classList.add('active');
+    statusAtual = 'Concluído ✔';
+    document.getElementById('fichaPreview').innerHTML = 'Preencha os campos acima...';
 }
 </script>
 </body>
